@@ -14,6 +14,10 @@ import addKilometerDetailsRouter from "./Routers/addKilometerDetailsRouter.js"
 
 dotenv.config();
 
+const server = express();
+
+server.use(cors());
+
 const middleware = async (req, res, next) => {
     try {
         await jwt.verify(req.headers.token, process.env.JWTSECREATKEY, (err, decoded) => {
@@ -27,9 +31,7 @@ const middleware = async (req, res, next) => {
         res.status(500).send({ message: "internal server error" });
     }
 }
-const server = express();
 
-server.use(cors());
 
 server.use(express.json());
 
